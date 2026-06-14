@@ -43,12 +43,17 @@
   - [[#vterm-toggle][Vterm-Toggle]]
 - [[#sudo-edit][SUDO EDIT]]
 - [[#theme][THEME]]
+- [[#transparency][TRANSPARENCY]]
 - [[#which-key][WHICH-KEY]]
 
 * LEXICAL BINDING
 
 #+begin_src emacs-lisp
 ;; -*- lexical-binding: t; -*-
+
+;; Emacs will soon enable lexical-binding by default. To avoid breaking retro-compatibility with Elisp files that require dynamic binding,
+;; a cookie comment is required at the very top of every document indicating whether lexical-binding is enabled or not.
+;; To enable lexical-binding, set the flag to t; to diable it and enable legacy dynamic-binding, set it to nil.
 #+end_src
 
 * COMPILATION RULES ON WINDOWS
@@ -785,6 +790,14 @@ with the help of the [[https://mswift42.github.io/themecreator/][Emacs Theme Edi
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
 (load-theme 'munich-black t) ; Uncomment this line once you have a theme in "~/.config/emacs/themes/"
 #+end_src
+
+* TRANSPARENCY
+With Emacs versions >=29, true transparency has been added.
+
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
+#+end_src
+
 * WHICH-KEY
 #+begin_src emacs-lisp
 (use-package which-key
