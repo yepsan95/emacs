@@ -56,7 +56,7 @@
 
 ;; Emacs will soon enable lexical-binding by default. To avoid breaking retro-compatibility with Elisp files that require dynamic binding,
 ;; a cookie comment is required at the very top of every document indicating whether lexical-binding is enabled or not.
-;; To enable lexical-binding, set the flag to t; to diable it and enable legacy dynamic-binding, set it to nil.
+;; To enable lexical-binding, set the flag to t; to disable it and enable legacy dynamic-binding, set it to nil.
 #+end_src
 
 * COMPILATION RULES ON WINDOWS
