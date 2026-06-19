@@ -41,6 +41,7 @@
   - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
   - [[#vterm-toggle][Vterm-Toggle]]
+  - [[#eat][Eat]]
 - [[#sudo-edit][SUDO EDIT]]
 - [[#theme][THEME]]
 - [[#transparency][TRANSPARENCY]]
@@ -771,6 +772,21 @@ vterm-toggle toggles between the vterm buffer and whatever buffer you are editin
                   ;; (dedicated . t) ; dedicated is supported in Emacs 27
                   (reusable-frames . visible)
                   (window-height . 0.3))))
+#+end_src
+
+** Eat
+Eat is a terminal emulator within Emacs, which is more friendly with Windows systems.
+We will only install this package if we are on a Windows system.
+
+#+begin_src emacs-lisp
+(when (eq system-type 'windows-nt) ; Only install on Windows systems
+  (use-package eat
+    :ensure (:host codeberg :repo "akib/emacs-eat"
+	     :files ("*.el" ("term" "term/*.el") "*.texi" "*.ti"))
+    :config
+  (setq explicit-shell-file-name "cmdproxy.exe")
+  (add-hook 'eshell-load-hook #'eat-eshell-mode)
+  (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)))
 #+end_src
 
 * SUDO EDIT
