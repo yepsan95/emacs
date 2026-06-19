@@ -7,7 +7,6 @@
 * TABLE OF CONTENTS :toc:
 - [[#lexical-binding][LEXICAL BINDING]]
 - [[#compilation-rules-on-windows][COMPILATION RULES ON WINDOWS]]
-- [[#scrolling-behaviour][SCROLLING BEHAVIOUR]]
 - [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#load-evil-mode][Load Evil Mode]]
@@ -39,6 +38,7 @@
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
 - [[#projectile][PROJECTILE]]
 - [[#rainbow-mode][RAINBOW MODE]]
+- [[#scrolling-behaviour][SCROLLING BEHAVIOUR]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
   - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
@@ -91,28 +91,6 @@ This is not needed on POSIX systems (Linux/MacOS).
   (setq native-comp-enable-subr-trampolines nil))
 #+end_src
 
-* SCROLLING BEHAVIOUR
-Emacs scrooling behaviour by default is clumsy. This helps make it more natural and smooth.
-
-#+begin_src emacs-lisp
-;; Force pixel-perfect calculations to handle fractional spacing
-(setq-default window-resize-pixelwise t)
-(setq-default frame-resize-pixelwise t)
-;; Enable modern pixel-precise scrolling behaviour
-(pixel-scroll-precision-mode 1)
-;; Force keyboard line commands to scroll cleanly by pixel-line heights
-(setq pixel-scroll-precision-large-scroll-height 1)
-;; Force keyboard scrolling to move an exact number of lines at a time when the cursor moves off-screen
-(setq scroll-step 1)
-;; Setting this to a value greater than 100 tells Emacs to never center the screen automatically
-(setq scroll-conservatively 100000)
-;; Disabling this prevents Emacs from automatically adjusting vertical scrolling for tall lines or varied fonts
-(setq auto-window-vscroll nil)
-;; Setting this to 0 means scrolling triggers only when the cursor touches the absolute bottom or top of the edge
-(setq scroll-margin 0)
-;; Force line-move to respect the absolute pixel height of lines
-(setq line-move-visual t)
-#+end_src
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** Elpaca Package Manager
 
@@ -761,6 +739,30 @@ as well as org-mode, which is why rainbow works on this document.
 (use-package rainbow-mode :ensure t :demand t
   :hook org-mode prog-mode)
 #+end_src
+
+* SCROLLING BEHAVIOUR
+Emacs scrooling behaviour by default is clumsy. This helps make it more natural and smooth.
+
+#+begin_src emacs-lisp
+;; Force pixel-perfect calculations to handle fractional spacing
+(setq-default window-resize-pixelwise t)
+(setq-default frame-resize-pixelwise t)
+;; Enable modern pixel-precise scrolling behaviour
+(pixel-scroll-precision-mode 1)
+;; Force keyboard line commands to scroll cleanly by pixel-line heights
+(setq pixel-scroll-precision-large-scroll-height 1)
+;; Force keyboard scrolling to move an exact number of lines at a time when the cursor moves off-screen
+(setq scroll-step 1)
+;; Setting this to a value greater than 100 tells Emacs to never center the screen automatically
+(setq scroll-conservatively 100000)
+;; Disabling this prevents Emacs from automatically adjusting vertical scrolling for tall lines or varied fonts
+(setq auto-window-vscroll nil)
+;; Setting this to 0 means scrolling triggers only when the cursor touches the absolute bottom or top of the edge
+(setq scroll-margin 0)
+;; Force line-move to respect the absolute pixel height of lines
+(setq line-move-visual t)
+#+end_src
+
 * SHELLS AND TERMINALS
 
 ** Eshell
