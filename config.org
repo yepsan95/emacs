@@ -13,9 +13,6 @@
   - [[#load-evil-mode][Load Evil Mode]]
   - [[#general-keybindings][General Keybindings]]
 - [[#all-the-icons][ALL THE ICONS]]
-- [[#app-launchers][APP LAUNCHERS]]
-  - [[#counsel-linux-app][Counsel-Linux-App]]
-  - [[#app-launcher][App-Launcher]]
 - [[#company][COMPANY]]
 - [[#dashboard][DASHBOARD]]
 - [[#diminish][DIMINISH]]
@@ -103,8 +100,9 @@ This is not needed on POSIX systems (Linux/MacOS).
 ** Sourcing the scripts
 
 #+begin_src emacs-lisp
-(require 'elpaca-setup) ;; The Elpaca Package Manager
-(require 'buffer-move)  ;; Buffer-move for a better window management
+(require 'elpaca-setup)  ;; The Elpaca Package Manager
+(require 'buffer-move)   ;; Buffer-move for a better window management
+(require 'app-launchers) ;; Use Emacs as a run launcher like dmenu (experimental)
 #+end_src
 
 ** Load Evil Mode
@@ -238,63 +236,6 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 
 (use-package all-the-icons-dired :ensure t :demand t
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
-#+end_src
-
-* APP LAUNCHERS
-
-** Counsel-Linux-App
-
-#+begin_src emacs-lisp
-(defun emacs-counsel-launcher ()
-  "Create and select a frame called emacs-counsel-launcher which consists only of a minibuffer
-  and has specific dimensions. Runs counsel-linux-app on that frame, which is an emacs command
-  that prompts you to select an app and open it in a dmenu like behaviour.
-  Delete the frame after that command has exited."
-  (interactive)
-  (with-selected-frame
-    (make-frame ' ((name . "emacs-run-launcher")
-                   (minibuffer . only)
-                   (fullscreen . 0) ; no fullscreen
-                   (undecorated . t) ; remove title bar
-                   ;; (auto-raise . t) ; focus on this frame
-                   ;; (tool-bar-lines . 0)
-                   ;; (menu-bar-lines . 0)
-                   (internal-border-with . 10)
-                   (width . 80)
-                   (height . 11)))
-                   (unwind-protect
-                     (counsel-linux-app)
-                     (delete-frame))))
-#+end_src
-
-** App-Launcher
-
-#+begin_src emacs-lisp
-(use-package app-launcher
-  :elpaca '(app-launcher :host github :repo "SebastienWae/app-launcher"))
-;; Create a global keyboard shortcut with the following code
-;; emacsclient -cF "((visibility . nil))" -e "(emacs-run-launcher)"
-
-(defun emacs-run-launcher ()
-  "Create and select a frame called emacs-run-launcher which consists only of a minibuffer
-  and has specific dimensions. Runs app-launcher-run-app on that frame, which is an emacs command
-  that prompts you to select an app and open it in a dmenu like behaviour.
-  Delete the frame after that command has exited."
-  (interactive)
-  (with-selected-frame
-    (make-frame ' ((name . "emacs-run-launcher")
-                   (minibuffer . only)
-                   (fullscreen . 0) ; no fullscreen
-                   (undecorated . t) ; remove title bar
-                   ;; (auto-raise . t) ; focus on this frame
-                   ;; (tool-bar-lines . 0)
-                   ;; (menu-bar-lines . 0)
-                   (internal-border-with . 10)
-                   (width . 80)
-                   (height . 11)))
-                   (unwind-protect
-                     (app-launcher-run-app)
-                     (delete-frame))))
 #+end_src
 
 * COMPANY
