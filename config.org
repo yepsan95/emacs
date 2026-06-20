@@ -35,6 +35,7 @@
   - [[#enable-table-of-contents][Enable Table of Contents]]
   - [[#enable-org-bullets][Enable Org Bullets]]
   - [[#enable-org-cycle-in-evil-normal-mode][Enable Org-Cycle In Evil Normal Mode]]
+  - [[#enable-image-rendering-in-org-mode][Enable Image Rendering In Org Mode]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
 - [[#projectile][PROJECTILE]]
@@ -636,6 +637,12 @@ This configuration enables it.
     (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
     ;; Bind Shift-TAB in Evil Normal Mode to cycle global visibility
     (evil-define-key 'normal org-mode-map (kbd "<backtab>") #'org-global-cycle)))
+#+end_src
+
+** Enable Image Rendering In Org Mode
+
+#+begin_src emacs-lisp
+(setq org-startup-with-inline-images t)
 #+end_src
 
 ** Disable Electric Indent
