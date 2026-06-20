@@ -712,8 +712,13 @@ with the help of the [[https://mswift42.github.io/themecreator/][Emacs Theme Edi
 (use-package doom-themes :ensure t
   :config
   (setq doom-themes-enable-bold- t ; if nil, bold is universally disabled
-	doom-themes-enable-italic t)) ; if nil, italics is universally disabled
-(load-theme 'munich-black t) ; Uncomment this line once you have a theme in "~/.config/emacs/themes/"
+	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;; Set the default theme to load
+(load-theme 'munich-black t)
+;; Enable custom neotree theme (all-the-icons must be installed)
+(doom-themes-neotree-config)
+;; Corrects (and improves) org-mode's native fortification
+(doom-themes-org-config))
 #+end_src
 
 * TRANSPARENCY
