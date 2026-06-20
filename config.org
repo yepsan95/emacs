@@ -13,6 +13,7 @@
   - [[#load-evil-mode][Load Evil Mode]]
   - [[#general-keybindings][General Keybindings]]
 - [[#all-the-icons][ALL THE ICONS]]
+- [[#backup-files][BACKUP FILES]]
 - [[#company][COMPANY]]
 - [[#dashboard][DASHBOARD]]
 - [[#diminish][DIMINISH]]
@@ -236,6 +237,18 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 
 (use-package all-the-icons-dired :ensure t :demand t
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+#+end_src
+
+* BACKUP FILES
+By default, Emacs creates automatic backups of files in their original directories, such as "file.el" and the backup "file.el~".
+This leads that it creates a lot of clutter, so let's tell Emacs to put all backups that it creates in the =TRASH= directory.
+On Windows systems, we will send the backups to a specialized directory: "~/.config/emacs/backups".
+
+#+begin_src emacs-lisp
+(when (eq system-type 'windows-nt)
+  (setq backup-directory-alist '((".*" . "~/.config/emacs/backups"))))
+(unless (eq system-type 'windows-nt)
+  (setq backup-directory-alist '((".*" . "~/.Trash"))))
 #+end_src
 
 * COMPANY
