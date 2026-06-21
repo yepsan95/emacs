@@ -27,6 +27,7 @@
   - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
 - [[#ivy-counsel][IVY (COUNSEL)]]
 - [[#language-support][LANGUAGE SUPPORT]]
+- [[#nerd-icons][NERD-ICONS]]
 - [[#neotree][NEOTREE]]
 - [[#org-mode][ORG MODE]]
   - [[#enable-table-of-contents][Enable Table of Contents]]
@@ -455,6 +456,21 @@ Simula, SQL, Tcl, Verilog, and VHDL. Other languages will require you to install
 ;; Search for the names of the packages for the languages that you need
 #+end_src
 
+* NERD-ICONS
+You need *nerd-fonts* installed on the operating system for *nerd-icons* to work on Emacs.
+If you are on a Windows system, you will need *Symbols Nerd Font* instead.
+
+#+begin_src emacs-lisp
+(use-package nerd-icons
+  :ensure (:type git :host github :repo "rainstormstudio/nerd-icons.el")
+  :config
+  (if (or (member "Symbols Nerd Font" (font-family-list))
+	  (member "SymbolsNerdFont" (font-family-list))
+	  (member "JetBrainsMono Nerd Font" (font-family-list)))
+      (require 'nerd-icons)
+    (message "Warning: 'Symbols Nerd Font' not found on the system. nerd-icons will not work.")))
+#+end_src
+
 * NEOTREE
 Neotree is a file tree viewer. When you open neotree, it jumps to the current file thanks to neo-smart-open.
 The neo-window-fixed-size setting makes the neotree width be adjustable. Neotree provides the following themes:
@@ -485,6 +501,7 @@ I like to use 'SPC t' for 'toggle' keybindings, so I have used 'SPC t n' for tog
 		(make-local-variable 'auto-hscroll-mode)
 		(setq auto-hscroll-mode nil)))))
 #+end_src
+
 
 * ORG MODE
 ** Enable Table of Contents
