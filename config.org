@@ -51,6 +51,7 @@
   - [[#eat][Eat]]
 - [[#sudo-edit][SUDO EDIT]]
 - [[#theme][THEME]]
+- [[#tldr][TLDR]]
 - [[#transparency][TRANSPARENCY]]
 - [[#which-key][WHICH-KEY]]
 
@@ -903,6 +904,11 @@ with the help of the [[https://mswift42.github.io/themecreator/][Emacs Theme Edi
 (doom-themes-neotree-config)
 ;; Corrects (and improves) org-mode's native fortification
 (doom-themes-org-config))
+#+end_src
+
+* TLDR
+#+begin_src emacs-lisp
+(use-package tldr :ensure t)
 #+end_src
 
 * TRANSPARENCY
