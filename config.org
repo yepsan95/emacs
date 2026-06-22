@@ -281,10 +281,10 @@ This leads that it creates a lot of clutter, so let's tell Emacs to put all back
 On Windows systems, we will send the backups to a specialized directory: "~/.config/emacs/backups".
 
 #+begin_src emacs-lisp
-(when (eq system-type 'windows-nt)
+(when (eq system-type 'windows-nt) ; For Windows systems
   (setq backup-directory-alist '((".*" . "~/.config/emacs/backups"))))
-(unless (eq system-type 'windows-nt)
-  (setq backup-directory-alist '((".*" . "~/.Trash"))))
+(unless (eq system-type 'windows-nt) ; For POSIX systems
+  (setq backup-directory-alist '((".*" . "~/.local/share/Trash/files"))))
 #+end_src
 
 * COMPANY
