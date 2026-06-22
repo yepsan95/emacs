@@ -10,7 +10,6 @@
 - [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
   - [[#adding-the-scripts-directory-to-the-path][Adding the scripts directory to the path]]
   - [[#sourcing-the-scripts][Sourcing the scripts]]
-  - [[#general-keybindings][General Keybindings]]
 - [[#all-the-icons][ALL THE ICONS]]
 - [[#backup-files][BACKUP FILES]]
 - [[#company][COMPANY]]
@@ -22,6 +21,7 @@
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
+- [[#general-keybindings][GENERAL KEYBINDINGS]]
 - [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
   - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
   - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
@@ -106,139 +106,6 @@ This is not needed on POSIX systems (Linux/MacOS).
 (require 'elpaca-setup)  ;; The Elpaca Package Manager
 (require 'buffer-move)   ;; Buffer-move for a better window management
 (require 'app-launchers) ;; Use Emacs as a run launcher like dmenu (experimental)
-#+end_src
-
-** General Keybindings
-
-#+begin_src emacs-lisp
-(use-package general :ensure t :demand t
-  :config
-  (general-evil-setup)
-
-  ;; set up  'SPC' as the global leader key
-  (general-create-definer bryan/leader-keys
-    :states '(normal insert visual emacs)
-    :keymaps 'override
-    :prefix "SPC" ;; set leader key
-    :global-prefix "M-SPC") ;; access leader in insert mode
-
-  (bryan/leader-keys
-   "SPC" '(counsel-M-x :wk "Counsel M-x")
-   "." '(find-file :wk "Switch buffer")
-   "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit Emacs config")
-   "f r" '(counsel-recentf :wk "Find recent files")
-   "TAB TAB" '(comment-line :wk "Comment lines"))
-
-  (bryan/leader-keys
-   "b" '(:ignore t :wk "Buffers")
-   "b c" '(clone-indirect-buffer :wk "Clone indirect copy in a split")
-   "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect copy in a new window")
-   "b b" '(switch-to-buffer :wk "Switch buffer")
-   "b i" '(ibuffer :wk "Ibuffer")
-   "b k" '(kill-this-buffer :wk "Kill this buffer")
-   "b K" '(kill-some-buffers :wk "Kill multiple buffers")
-   "b n" '(next-buffer :wk "Next buffer")
-   "b p" '(previous-buffer :wk "Previous buffer")
-   "b r" '(revert-buffer :wk "Reload buffer")
-   "b R" '(rename-buffer :wk "Rename buffer")
-   "b s" '(basic-save-buffer :wk "Save buffer")
-   "b S" '(save-some-buffers :wk "Save multiple buffers"))
-
-  (bryan/leader-keys
-   "B" '(:ignore t :wk "Bookmarks")
-   "B d" '(bookmark-delete :wk "Delete bookmark")
-   "B l" '(list-bookmarks :wk "List bookmarks")
-   "B m" '(bookmark-set :wk "Set bookmark")
-   "B w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
-
-  (bryan/leader-keys
-   "d" '(:ignore t :wk "Dired")
-   "d d" '(dired :wk "Open dired")
-   "d j" '(dired-jump :wk "Dired jump to current")
-   "d n" '(neotree-dir :wk "Open directory in neotree")
-   "d p" '(peep-dired :wk "Peep-dired"))
-
-  (bryan/leader-keys
-   "e" '(:ignore t :wk "Evaluate/Eshell")
-   "e b" '(eval-buffer :wk "Evaulate elisp in buffer")
-   "e d" '(eval-defun :wk "Evaluate defun containing or after point")
-   "e e" '(eval-expression :wk "Evaluate an elisp expression")
-   "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
-   "e r" '(evaluate-region :wk "Evaluate elisp in region")
-   "e s" '(eshell :wk "Eshell")
-   "e h" '(counsel-esh-history :wk "Eshell history"))
-
-  (bryan/leader-keys
-   "h" '(:ignore t :wk "Help")
-   "h a" '(counsel-apropos :wk "Apropos")
-   "h b" '(describe-bindings :wk "Describe bindings")
-   "h c" '(describe-char :wk "Describe character under cursor")
-   "h d" '(:ignore t :wk "Emacs documentation")
-   "h d a" '(about-emacs :wk "About Emacs")
-   "h d d" '(view-emacs-debugging :wk "View Emacs debugging")
-   "h d f" '(view-emacs-FAQ :wk "View Emacs FAQ")
-   "h d m" '(info-emacs-manual :wk "The Emacs manual")
-   "h d n" '(view-emacs-news :wk "View Emacs news")
-   "h d o" '(describe-distribution :wk "How to obtain Emacs")
-   "h d p" '(view-emacs-problems :wk "View Emacs problems")
-   "h d t" '(view-emacs-todo :wk "View Emacs todo")
-   "h d w" '(describe-no-warranty :wk "Describe no warranty")
-   "h e" '(view-echo-area-messages :wk "View echo area messages")
-   "h f" '(describe-function :wk "Describe function")
-   "h F" '(describe-face :wk "Describe face")
-   "h g" '(describe-gnu-project :wk "Describe GNU project")
-   "h i" '(info :wk "Info")
-   "h I" '(describe-input-method :wk "Describe input method")
-   "h k" '(describe-key :wk "Describe key")
-   "h l" '(view-lossage :wk "Display recent keystrokes and the commands run")
-   "h L" '(describe-language-environment :wk "Describe language environment")
-   "h m" '(describe-mode :wk "Describe mode")
-   "h r r" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :wk "Reload Emacs config")
-   "h t" '(load-theme :wk "Load theme")
-   "h v" '(describe-variable :wk "Describe variable"))
-
-  (bryan/leader-keys
-   "m" '(:ignore t :wk "Org")
-   "m a" '(org-agenda :wk "Org agenda")
-   "m e" '(org-export-dispatch :wk "Org export dispatch")
-   "m i" '(org-toggle-item :wk "Org toggle item")
-   "m t" '(org-todo :wk "Org todo")
-   "m B" '(org-babel-tangle :wk "Org babel tangle")
-   "m T" '(org-todo-list :wk "Org todo list"))
-
-  (bryan/leader-keys
-   "m b" '(:ignore t :wk "Tables")
-   "m b -" '(org-table-insert-hline :wk "Insert hline in table"))
-
-  (bryan/leader-keys
-   "m d" '(:ignore t :wk "Date/deadline")
-   "m d t" '(org-time-stamp :wk "Org time stamp"))
-
-  (bryan/leader-keys
-   "t" '(:ignore t :wk "Toggle")
-   "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-   "t t" '(visual-line-mode :wk "Toggle truncated lines")
-   "t v" '(vterm-toggle :wk "Toggle vterm"))
-
-  (bryan/leader-keys
-   "w" '(:ignore t :wk "Windows")
-   ;; Window splits
-   "w c" '(evil-window-delete :wk "Close window")
-   "w n" '(evil-window-new :wk "New window")
-   "w s" '(evil-window-split :wk "Horizontal split window")
-   "w v" '(evil-window-vsplit :wk "Vertical split window")
-   ;; Window motions
-   "w h" '(evil-window-left :wk "Window left")
-   "w j" '(evil-window-down :wk "Window down")
-   "w k" '(evil-window-up :wk "Window up")
-   "w l" '(evil-window-right :wk "Window right")
-   "w w" '(evil-window-next :wk "Go to next window")
-   ;; Move windows
-   "w H" '(buf-move-left :wk "Buffer move left")
-   "w J" '(buf-move-down :wk "Buffer move down")
-   "w K" '(buf-move-up :wk "Buffer move up")
-   "w L" '(buf-move-right :wk "Buffer move right"))
-  )
 #+end_src
 
 * ALL THE ICONS
@@ -438,6 +305,141 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 #+end_src
+
+
+* GENERAL KEYBINDINGS
+
+#+begin_src emacs-lisp
+(use-package general :ensure t :demand t
+  :config
+  (general-evil-setup)
+
+  ;; set up  'SPC' as the global leader key
+  (general-create-definer bryan/leader-keys
+    :states '(normal insert visual emacs)
+    :keymaps 'override
+    :prefix "SPC" ;; set leader key
+    :global-prefix "M-SPC") ;; access leader in insert mode
+
+  (bryan/leader-keys
+   "SPC" '(counsel-M-x :wk "Counsel M-x")
+   "." '(find-file :wk "Switch buffer")
+   "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit Emacs config")
+   "f r" '(counsel-recentf :wk "Find recent files")
+   "TAB TAB" '(comment-line :wk "Comment lines"))
+
+  (bryan/leader-keys
+   "b" '(:ignore t :wk "Buffers")
+   "b c" '(clone-indirect-buffer :wk "Clone indirect copy in a split")
+   "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect copy in a new window")
+   "b b" '(switch-to-buffer :wk "Switch buffer")
+   "b i" '(ibuffer :wk "Ibuffer")
+   "b k" '(kill-this-buffer :wk "Kill this buffer")
+   "b K" '(kill-some-buffers :wk "Kill multiple buffers")
+   "b n" '(next-buffer :wk "Next buffer")
+   "b p" '(previous-buffer :wk "Previous buffer")
+   "b r" '(revert-buffer :wk "Reload buffer")
+   "b R" '(rename-buffer :wk "Rename buffer")
+   "b s" '(basic-save-buffer :wk "Save buffer")
+   "b S" '(save-some-buffers :wk "Save multiple buffers"))
+
+  (bryan/leader-keys
+   "B" '(:ignore t :wk "Bookmarks")
+   "B d" '(bookmark-delete :wk "Delete bookmark")
+   "B l" '(list-bookmarks :wk "List bookmarks")
+   "B m" '(bookmark-set :wk "Set bookmark")
+   "B w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
+
+  (bryan/leader-keys
+   "d" '(:ignore t :wk "Dired")
+   "d d" '(dired :wk "Open dired")
+   "d j" '(dired-jump :wk "Dired jump to current")
+   "d n" '(neotree-dir :wk "Open directory in neotree")
+   "d p" '(peep-dired :wk "Peep-dired"))
+
+  (bryan/leader-keys
+   "e" '(:ignore t :wk "Evaluate/Eshell")
+   "e b" '(eval-buffer :wk "Evaulate elisp in buffer")
+   "e d" '(eval-defun :wk "Evaluate defun containing or after point")
+   "e e" '(eval-expression :wk "Evaluate an elisp expression")
+   "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
+   "e r" '(evaluate-region :wk "Evaluate elisp in region")
+   "e s" '(eshell :wk "Eshell")
+   "e h" '(counsel-esh-history :wk "Eshell history"))
+
+  (bryan/leader-keys
+   "h" '(:ignore t :wk "Help")
+   "h a" '(counsel-apropos :wk "Apropos")
+   "h b" '(describe-bindings :wk "Describe bindings")
+   "h c" '(describe-char :wk "Describe character under cursor")
+   "h d" '(:ignore t :wk "Emacs documentation")
+   "h d a" '(about-emacs :wk "About Emacs")
+   "h d d" '(view-emacs-debugging :wk "View Emacs debugging")
+   "h d f" '(view-emacs-FAQ :wk "View Emacs FAQ")
+   "h d m" '(info-emacs-manual :wk "The Emacs manual")
+   "h d n" '(view-emacs-news :wk "View Emacs news")
+   "h d o" '(describe-distribution :wk "How to obtain Emacs")
+   "h d p" '(view-emacs-problems :wk "View Emacs problems")
+   "h d t" '(view-emacs-todo :wk "View Emacs todo")
+   "h d w" '(describe-no-warranty :wk "Describe no warranty")
+   "h e" '(view-echo-area-messages :wk "View echo area messages")
+   "h f" '(describe-function :wk "Describe function")
+   "h F" '(describe-face :wk "Describe face")
+   "h g" '(describe-gnu-project :wk "Describe GNU project")
+   "h i" '(info :wk "Info")
+   "h I" '(describe-input-method :wk "Describe input method")
+   "h k" '(describe-key :wk "Describe key")
+   "h l" '(view-lossage :wk "Display recent keystrokes and the commands run")
+   "h L" '(describe-language-environment :wk "Describe language environment")
+   "h m" '(describe-mode :wk "Describe mode")
+   "h r r" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :wk "Reload Emacs config")
+   "h t" '(load-theme :wk "Load theme")
+   "h v" '(describe-variable :wk "Describe variable"))
+
+  (bryan/leader-keys
+   "m" '(:ignore t :wk "Org")
+   "m a" '(org-agenda :wk "Org agenda")
+   "m e" '(org-export-dispatch :wk "Org export dispatch")
+   "m i" '(org-toggle-item :wk "Org toggle item")
+   "m t" '(org-todo :wk "Org todo")
+   "m B" '(org-babel-tangle :wk "Org babel tangle")
+   "m T" '(org-todo-list :wk "Org todo list"))
+
+  (bryan/leader-keys
+   "m b" '(:ignore t :wk "Tables")
+   "m b -" '(org-table-insert-hline :wk "Insert hline in table"))
+
+  (bryan/leader-keys
+   "m d" '(:ignore t :wk "Date/deadline")
+   "m d t" '(org-time-stamp :wk "Org time stamp"))
+
+  (bryan/leader-keys
+   "t" '(:ignore t :wk "Toggle")
+   "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+   "t t" '(visual-line-mode :wk "Toggle truncated lines")
+   "t v" '(vterm-toggle :wk "Toggle vterm"))
+
+  (bryan/leader-keys
+   "w" '(:ignore t :wk "Windows")
+   ;; Window splits
+   "w c" '(evil-window-delete :wk "Close window")
+   "w n" '(evil-window-new :wk "New window")
+   "w s" '(evil-window-split :wk "Horizontal split window")
+   "w v" '(evil-window-vsplit :wk "Vertical split window")
+   ;; Window motions
+   "w h" '(evil-window-left :wk "Window left")
+   "w j" '(evil-window-down :wk "Window down")
+   "w k" '(evil-window-up :wk "Window up")
+   "w l" '(evil-window-right :wk "Window right")
+   "w w" '(evil-window-next :wk "Go to next window")
+   ;; Move windows
+   "w H" '(buf-move-left :wk "Buffer move left")
+   "w J" '(buf-move-down :wk "Buffer move down")
+   "w K" '(buf-move-up :wk "Buffer move up")
+   "w L" '(buf-move-right :wk "Buffer move right"))
+  )
+#+end_src
+
 * GRAPHICAL USER INTERFACE TWEAKS
 Let's make GNU Emacs look a little better.
 
