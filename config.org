@@ -347,25 +347,37 @@ to hide that particular mode in the modeline.
 Evil is an extensible vi/vim layer for Emacs. Because... let's face it. The Vim keybindings are just plain better.
 
 #+begin_src emacs-lisp
-  (use-package evil :ensure t :demand t
-    :init
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    (setq evil-vsplit-window-right t)
-    (setq evil-split-window-below t)
-    (setq evil-undo-system 'undo-redo) ;; Adds Vim-like C-r redo functionality
-    (setq evil-want-C-u-scroll t) ;; Enables C-u to jump half a page up
-    (evil-mode))
-  (use-package evil-collection :ensure t :demand t
-    :after evil
-    (setq evil-collection-mode-list '(dashboard dired ibuffer))
-    (evil-collection init))
-  (use-package evil-tutor :ensure t :demand t)
+(use-package evil :ensure t :demand t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (setq evil-undo-system 'undo-redo) ;; Adds Vim-like C-r redo functionality
+  (setq evil-want-C-u-scroll t) ;; Enables C-u to jump half a page up
+  (evil-mode))
 
-  ;;Turns off elpaca-use-package-mode current declaration
-  ;;Note this will cause evaluate the declaration immediately. It is not deferred.
-  ;;Useful for configuring built-in emacs features.
-  (use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
+(use-package evil-collection :ensure t :demand t
+  :after evil
+  ;; Do not uncomment this unless you want to specify each and every mode
+  ;; that evil-collection should work with. The following line is here
+  ;; for documentation purposes in case you need it.
+
+  ;; (setq evil-collection-mode-list '(dashboard dired ibuffer))
+  (add-to-list 'evil-collection-mode-list 'help) ;; Evilify help mode
+  (evil-collection init))
+
+(use-package evil-tutor :ensure t :demand t)
+
+;; Using RETURN to follow links in Org/Evil.
+;; Unmap keys in 'evil-maps. If not done, (setq org-return-follow-link t) will not work.
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "SPC") nil)
+  (define-key evil-motion-state-map (kbd "RET") nil)
+  (define-key evil-motion-state-map (kbd "TAB") nil))
+
+;; Setting RETURN key in org-mode to follow links.
+(setq org-return-follows-link t)
 #+end_src
 
 * FLYCHECK
