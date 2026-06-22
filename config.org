@@ -908,7 +908,10 @@ with the help of the [[https://mswift42.github.io/themecreator/][Emacs Theme Edi
 
 * TLDR
 #+begin_src emacs-lisp
-(use-package tldr :ensure t)
+(use-package tldr :ensure t
+  :config
+  (when (eq system-type 'windows-nt)
+    (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")))
 #+end_src
 
 * TRANSPARENCY
