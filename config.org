@@ -44,6 +44,7 @@
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
 - [[#perspective][PERSPECTIVE]]
 - [[#projectile][PROJECTILE]]
+- [[#rainbow-delimiters][RAINBOW DELIMITERS]]
 - [[#rainbow-mode][RAINBOW MODE]]
 - [[#scrolling-behaviour][SCROLLING BEHAVIOUR]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
@@ -743,6 +744,15 @@ projectile commands do not work if you have set "fish" as the "shell-file-name" 
   :diminish
   :config
   (projectile-mode 1))
+#+end_src
+
+* RAINBOW DELIMITERS
+Adding rainbow coloring to parentheses () and other symbols such as brackets [] and braces {}.
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters :ensure t
+  :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
+	 (clojure-mode . rainbow-delimiters-mode)))
 #+end_src
 
 * RAINBOW MODE
