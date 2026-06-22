@@ -24,6 +24,7 @@
 - [[#general-keybindings][GENERAL KEYBINDINGS]]
 - [[#git-programs][GIT PROGRAMS]]
   - [[#git-time-machine][Git Time Machine]]
+  - [[#magit][Magit]]
 - [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
   - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
   - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
@@ -457,6 +458,13 @@ The, while in normal mode, you can use 'CTRL-j' and 'CTRL-k' to move backwards a
     (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
     (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision)
 )
+#+end_src
+
+** Magit
+Magit is a full-featured git client for Emacs.
+
+#+begin_src emacs-lisp
+(use-package magit :ensure t)
 #+end_src
 
 * GRAPHICAL USER INTERFACE TWEAKS
