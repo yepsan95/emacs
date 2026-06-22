@@ -353,6 +353,7 @@ Evil is an extensible vi/vim layer for Emacs. Because... let's face it. The Vim 
     (setq evil-want-keybinding nil)
     (setq evil-vsplit-window-right t)
     (setq evil-split-window-below t)
+    (setq evil-undo-system 'undo-redo) ;; Adds Vim-like C-r redo functionality
     (setq evil-want-C-u-scroll t) ;; Enables C-u to jump half a page up
     (evil-mode))
   (use-package evil-collection :ensure t :demand t
