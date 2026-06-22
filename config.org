@@ -25,9 +25,6 @@
 - [[#git-programs][GIT PROGRAMS]]
   - [[#git-time-machine][Git Time Machine]]
   - [[#magit][Magit]]
-- [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
-  - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
-  - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
 - [[#highlight-todo][HIGHLIGHT TODO]]
 - [[#ivy-counsel][IVY (COUNSEL)]]
 - [[#language-support][LANGUAGE SUPPORT]]
@@ -40,12 +37,12 @@
   - [[#enable-org-bullets][Enable Org Bullets]]
   - [[#enable-org-cycle-in-evil-normal-mode][Enable Org-Cycle In Evil Normal Mode]]
   - [[#enable-image-rendering-in-org-mode][Enable Image Rendering In Org Mode]]
-  - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
 - [[#perspective][PERSPECTIVE]]
 - [[#projectile][PROJECTILE]]
 - [[#rainbow-delimiters][RAINBOW DELIMITERS]]
 - [[#rainbow-mode][RAINBOW MODE]]
+- [[#sane-defaults][SANE DEFAULTS]]
 - [[#scrolling-behaviour][SCROLLING BEHAVIOUR]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
   - [[#eshell][Eshell]]
@@ -478,22 +475,6 @@ Magit is a full-featured git client for Emacs.
   :after transient)
 #+end_src
 
-* GRAPHICAL USER INTERFACE TWEAKS
-Let's make GNU Emacs look a little better.
-
-** Disable Menubar, Toolbars and Scrollbars
-#+begin_src emacs-lisp
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-#+end_src
-
-** Display Line Numbers and Truncated Lines
-#+begin_src emacs-lisp
-(global-display-line-numbers-mode 1)
-(global-visual-line-mode t)
-#+end_src
-
 * HIGHLIGHT TODO
 Adding highlights to TODO and related words.
 
@@ -676,16 +657,6 @@ This configuration enables it.
 (setq org-startup-with-inline-images t)
 #+end_src
 
-** Disable Electric Indent
-Org mode source blocks have some really weird and annoying default indentation behaviour.
-I think this has to do with electric-indent-mode, which is turned on by default in Emacs.
-So let's turn it OFF!
-
-#+begin_src emacs-lisp
-(electric-indent-mode -1)
-(setq org-edit-src-content-indentation 0)
-#+end_src
-
 ** Source Code Block Tag Expansion
 Org-tempo is not a separate package but a module within org that can be enabled.
 Org-tempo allows for '<s' followed by TAB to expand to a begin_src tag.
@@ -763,6 +734,32 @@ as well as org-mode, which is why rainbow works on this document.
 #+begin_src emacs-lisp
 (use-package rainbow-mode :ensure t :demand t
   :hook org-mode prog-mode)
+#+end_src
+
+* SANE DEFAULTS
+The following settings are simple modes that are enabled (or disabled) so that Emacs behaves more like
+you would expect a proper editor/IDE to function.
+
+#+begin_src emacs-lisp
+(delete-selection-mode 1)                 ;; You can select text and delete it by typing
+(electric-indent-mode -1)                 ;; Turns off the weird indenting that Emacs does by default
+;; (electric-pair-mode 1)                 ;; Turns on automatic parentheses pairing (and other symbols)
+
+;; The following block of code disables electric-pair-mode only for <> characters.
+;; If you enable electric-pair-mode, it's recommended to uncomment this block of code.
+
+;; (add-hook 'org-mode-hook (lambda ()
+;; 	   (setq-local electric-pair-inhibit-predicate
+;; 		   `(lambda (c)
+;; 		  (if (chat-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+
+(global-auto-revert-mode t)               ;; Automatically show changes if the file has changed
+(global-display-line-numbers-mode 1)      ;; Display line numbers
+(global-visual-line-mode t)               ;; Enable truncated lines
+(menu-bar-mode -1)                        ;; Disable the menu bar
+(tool-bar-mode -1)                        ;; Disable the tool bar
+(scroll-bar-mode -1)                      ;; Disable the scroll bar
+(setq org-edit-src-content-indentation 0) ;; Set src blocks automatic indent to 0 instead of 2 in org-mode
 #+end_src
 
 * SCROLLING BEHAVIOUR
