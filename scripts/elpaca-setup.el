@@ -37,6 +37,11 @@
     (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
+
+;; Disable symlinks on Windows
+(when (eq system-type 'windows-nt) ; Only on Windows systems
+  (elpaca-no-symlink-mode))
+
 ;; Install a package via the elpaca macro
 ;; See the "recipes" section of the manual for more details.
 
@@ -54,10 +59,6 @@
 ;;(use-package general :ensure (:wait t) :demand t)
 
 ;; Expands to: (elpaca evil (use-package evil :demand t))
-
-;; Disable symlinks on Windows
-(when (eq system-type 'windows-nt) ; Only on Windows systems
-  (elpaca-no-symlink-mode))
 
 (provide 'elpaca-setup)
 
