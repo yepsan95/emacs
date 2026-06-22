@@ -464,7 +464,14 @@ The, while in normal mode, you can use 'CTRL-j' and 'CTRL-k' to move backwards a
 Magit is a full-featured git client for Emacs.
 
 #+begin_src emacs-lisp
-(use-package magit :ensure t)
+;; Magit requires Transient 0.13
+;; Update Transient before installing Magit
+(use-package transient
+  :elpaca (transient :branch "main")
+  :demand t)
+
+(use-package magit :ensure t
+  :after transient)
 #+end_src
 
 * GRAPHICAL USER INTERFACE TWEAKS
