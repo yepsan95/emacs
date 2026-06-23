@@ -861,7 +861,7 @@ Eshell is an Emacs 'shell' that is written in Elisp.
 
 #+begin_src emacs-lisp
 (use-package eshell-syntax-highlighting :ensure t :demand t
-  :after esh-mode
+  :after eshell-mode
   :config
   (eshell-syntax-hightlighting-global-mode +1))
 
