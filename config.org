@@ -329,9 +329,9 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
   (bryan/leader-keys
    "SPC" '(counsel-M-x :wk "Counsel M-x")
    "." '(find-file :wk "Switch buffer")
-   "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit Emacs config")
-   "f r" '(counsel-recentf :wk "Find recent files")
-   "TAB TAB" '(comment-line :wk "Comment lines"))
+   "=" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
+   "TAB TAB" '(comment-line :wk "Comment lines")
+   "u" '(universal-argument :wk "Universal argument"))
 
   (bryan/leader-keys
    "b" '(:ignore t :wk "Buffers")
@@ -367,10 +367,48 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
    "e b" '(eval-buffer :wk "Evaulate elisp in buffer")
    "e d" '(eval-defun :wk "Evaluate defun containing or after point")
    "e e" '(eval-expression :wk "Evaluate an elisp expression")
+   "e h" '(counsel-esh-history :wk "Eshell history")
    "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
    "e r" '(evaluate-region :wk "Evaluate elisp in region")
+   "e R" '(eww-reload :wk "Reload current page in EWW")
    "e s" '(eshell :wk "Eshell")
-   "e h" '(counsel-esh-history :wk "Eshell history"))
+   "e w" '(eww :wk "EWW Emacs Web Wowser"))
+
+  (bryan/leader-keys
+   "f" '(:ignore t :wk "Files")
+   "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit Emacs config")
+   "f e" '((lambda () (interactive) (dired "~/.config/emacs/")) :wk "Open user-emacs-directory in dired")
+   "f d" '(find-grep-dired :wk "Search for string in files in DIR")
+   "f g" '(counsel-grep-or-swiper :wk "Search for string in current file")
+   "f i" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Open emacs init.el")
+   "f j" '(counsel-file-jump :wk "Jump to a file below the current directory")
+   "f l" '(counsel-locate :wk "Locate a file")
+   "f r" '(counsel-recentf :wk "Find recent files")
+   "f u" '(sudo-edit-find-file :wk "Sudo find file")
+   "f U" '(sudo-edit :wk "Sudo edit file"))
+
+  (bryan/leader-keys
+   "g" '(:ignore t :wk "Git")
+   "g /" '(magit-dispatch :wk "Magit dispatch")
+   "g ." '(magit-file dispatch :wk "Magit file dispatch")
+   "g b" '(magit-branch-checkout :wk "Switch branch")
+   "g c" '(:ignore t :wk "Create")
+   "g c b" '(magit-branch-and-checkout :wk "Create branch and checkout")
+   "g c c" '(maggit-commit-create :wk "Create commit")
+   "g c f" '(magit-commit-fixup :wk "Create fixup commit")
+   "g C" '(magit-clone :wk "Clone repo")
+   "g f" '(:ignore t :wk "Find")
+   "g f c" '(magit-show-commit :wk "Show commit")
+   "g f f" '(magit-find-file :wk "Magit find file")
+   "g f g" '(magit-find-git-config-file :wk "Find git config file")
+   "g F" '(magit-fetch :wk "Git fetch")
+   "g g" '(magit-status :wk "Git status")
+   "g i" '(magit-init :wk "Initialize git repo")
+   "g l" '(magit-log-buffer-file :wk "Magit buffer log")
+   "g r" '(vc-revert :wk "Git revert file")
+   "g s" '(magit-stage-files :wk "Git stage file")
+   "g t" '(git-timemachine :wk "Git time machine")
+   "g u" '(magit-unstage-files :wk "Git unstage file"))
 
   (bryan/leader-keys
    "h" '(:ignore t :wk "Help")
@@ -397,17 +435,23 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
    "h l" '(view-lossage :wk "Display recent keystrokes and the commands run")
    "h L" '(describe-language-environment :wk "Describe language environment")
    "h m" '(describe-mode :wk "Describe mode")
-   "h r r" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :wk "Reload Emacs config")
+   "h r" '(:ignore t :wk "Reload")
+   "h r r" '((lambda () (interactive)
+	       (load-file "~/.config/emacs/init.el")
+	       (ignore (elpaca-process-queues)))
+	     :wk "Reload Emacs config")
    "h t" '(load-theme :wk "Load theme")
-   "h v" '(describe-variable :wk "Describe variable"))
+   "h v" '(describe-variable :wk "Describe variable")
+   "h w" '(wherer-is :wk "Prints keybinding for command if set")
+   "h x" '(describe-command :wk "Display full documentation for command"))
 
   (bryan/leader-keys
    "m" '(:ignore t :wk "Org")
    "m a" '(org-agenda :wk "Org agenda")
+   "m B" '(org-babel-tangle :wk "Org babel tangle")
    "m e" '(org-export-dispatch :wk "Org export dispatch")
    "m i" '(org-toggle-item :wk "Org toggle item")
    "m t" '(org-todo :wk "Org todo")
-   "m B" '(org-babel-tangle :wk "Org babel tangle")
    "m T" '(org-todo-list :wk "Org todo list"))
 
   (bryan/leader-keys
@@ -419,8 +463,32 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
    "m d t" '(org-time-stamp :wk "Org time stamp"))
 
   (bryan/leader-keys
+   "o" '(:ignore t :wk "Open")
+   "o d" '(dashboard-open :wk "Dashboard")
+   "o e" '(elfeed :wk "Elfeed RSS")
+   "o f" '(make-frame :wk "Open buffer in new frame")
+   "o F" '(select-frame-by-name :wk "Select frame by name"))
+
+  ;; projectile-command-map already has a ton of bindings
+  ;; set for us, so no need to specify each individually.
+  (bryan/leader-keys
+   "p" '(projectile-command-map :wk "Projectile"))
+
+  (bryan/leader-keys
+   "s" '(:ignore t :wk "Search")
+   "s d" '(dictionary-search :wk "Search dictionary")
+   "s m" '(man :wk "Man pages")
+   "s t" '(tldr :wk "Lookup TLDR docs for a command")
+   "s w" '(woman :wk "Similar to man but doesn't require man"))
+
+  (bryan/leader-keys
    "t" '(:ignore t :wk "Toggle")
+   "t e" '(eshell-toggle :wk "Toggle Eshell")
+   "t f" '(flycheck-mode :wk "Toggle Flycheck")
    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+   "t n" '(neotree-toggle :wk "Toggle Neotree file viewer")
+   "t o" '(org-mode :wk "Toggle Org mode")
+   "t r" '(rainbow-mode :wk "Toggle Rainbow mode")
    "t t" '(visual-line-mode :wk "Toggle truncated lines")
    "t v" '(vterm-toggle :wk "Toggle vterm"))
 
