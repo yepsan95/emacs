@@ -38,6 +38,7 @@
   - [[#enable-org-cycle-in-evil-normal-mode][Enable Org-Cycle In Evil Normal Mode]]
   - [[#enable-image-rendering-in-org-mode][Enable Image Rendering In Org Mode]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+  - [[#file-links-open-on-full-frame][File links open on full-frame]]
 - [[#perspective][PERSPECTIVE]]
 - [[#projectile][PROJECTILE]]
 - [[#rainbow-delimiters][RAINBOW DELIMITERS]]
@@ -745,6 +746,20 @@ Other expansions available include:
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
+#+end_src
+
+** File links open on full-frame
+
+#+begin_src emacs-lisp
+(setq org-link-frame-setup
+      '((vm . vm-visit-folder)
+	(vm-imap . vm-visit-imap-folder)
+	(gnus . gnus)
+	(file . find-file)
+	(wl . wl)))
+
+(add-to-list 'display-buffer-alist
+	     '("\\.org$" . (display-buffer-same-window)))
 #+end_src
 
 * PERSPECTIVE
