@@ -993,7 +993,8 @@ with the help of the [[https://mswift42.github.io/themecreator/][Emacs Theme Edi
   (setq doom-themes-enable-bold- t ; if nil, bold is universally disabled
 	doom-themes-enable-italic t) ; if nil, italics is universally disabled
 ;; Set the default theme to load
-(load-theme 'munich-black t)
+;; (load-theme 'munich-black t)
+(load-theme 'doom-one t)
 ;; Enable custom neotree theme (all-the-icons must be installed)
 (doom-themes-neotree-config)
 ;; Corrects (and improves) org-mode's native fortification
