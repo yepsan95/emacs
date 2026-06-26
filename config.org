@@ -38,7 +38,8 @@
   - [[#enable-org-cycle-in-evil-normal-mode][Enable Org-Cycle In Evil Normal Mode]]
   - [[#enable-image-rendering-in-org-mode][Enable Image Rendering In Org Mode]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-  - [[#file-links-open-on-full-frame][File links open on full-frame]]
+  - [[#source-code-block-language-recognition][Source Code Block Language Recognition]]
+  - [[#file-links-open-on-full-frame][File Links Open On Full-Frame]]
 - [[#perspective][PERSPECTIVE]]
 - [[#projectile][PROJECTILE]]
 - [[#rainbow-delimiters][RAINBOW DELIMITERS]]
@@ -612,6 +613,7 @@ Simula, SQL, Tcl, Verilog, and VHDL. Other languages will require you to install
 #+begin_src emacs-lisp
 (use-package haskell-mode :ensure t)
 (use-package php-mode :ensure t)
+(use-package yaml-mode :ensure t)
 ;; Search for the names of the packages for the languages that you need
 #+end_src
 
@@ -748,7 +750,16 @@ Other expansions available include:
 (require 'org-tempo)
 #+end_src
 
-** File links open on full-frame
+** Source Code Block Language Recognition
+Some languages are not natively supported by Org mode's source code blocks.
+Define them here.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+  (add-to-list 'org-src-lang-modes '("yaml" . yaml)))
+#+end_src
+
+** File Links Open On Full-Frame
 
 #+begin_src emacs-lisp
 (setq org-link-frame-setup
