@@ -341,7 +341,7 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
    "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect copy in a new window")
    "b b" '(switch-to-buffer :wk "Switch buffer")
    "b i" '(ibuffer :wk "Ibuffer")
-   "b k" '(kill-this-buffer :wk "Kill this buffer")
+   "b k" '(kill-current-buffer :wk "Kill this buffer")
    "b K" '(kill-some-buffers :wk "Kill multiple buffers")
    "b n" '(next-buffer :wk "Next buffer")
    "b p" '(previous-buffer :wk "Previous buffer")
