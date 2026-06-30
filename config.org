@@ -866,6 +866,9 @@ Emacs scrooling behaviour by default is clumsy. This helps make it more natural 
 (setq-default frame-resize-pixelwise t)
 ;; Enable modern pixel-precise scrolling behaviour
 (pixel-scroll-precision-mode 1)
+
+;; Vertical scrolling rules
+
 ;; Force keyboard line commands to scroll cleanly by pixel-line heights
 (setq pixel-scroll-precision-large-scroll-height 1)
 ;; Force keyboard scrolling to move an exact number of lines at a time when the cursor moves off-screen
@@ -878,6 +881,13 @@ Emacs scrooling behaviour by default is clumsy. This helps make it more natural 
 (setq scroll-margin 0)
 ;; Force line-move to respect the absolute pixel height of lines
 (setq line-move-visual t)
+
+;; Horizontal scrolling rules
+(setq hscroll-margin 0)
+(setq hscroll-step 1)
+(setq-default hscroll-step 1)
+(setq mouse-wheel-scroll-amount-horizontal 1)
+(setq window-hscroll 1)
 #+end_src
 
 * SHELLS AND TERMINALS
