@@ -614,6 +614,7 @@ Simula, SQL, Tcl, Verilog, and VHDL. Other languages will require you to install
 (use-package haskell-mode :ensure t)
 (use-package php-mode :ensure t)
 (use-package yaml-mode :ensure t)
+(use-package dockerfile-mode :ensure t)
 ;; Search for the names of the packages for the languages that you need
 #+end_src
 
