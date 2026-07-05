@@ -971,12 +971,19 @@ We will only install this package if we are on a Windows system.
 #+begin_src emacs-lisp
 (when (eq system-type 'windows-nt) ; Only install on Windows systems
   (use-package eat
-    :ensure (:host codeberg :repo "akib/emacs-eat"
-	     :files ("*.el" ("term" "term/*.el") "*.texi" "*.ti"))
+    :ensure (:host codeberg
+	     :repo "lambertlulala/emacs-eat"
+	     :files ("*.el"
+		     ("term" "term/*.el")
+		     "integration/windows/eat-pywinpty-bridge.py"
+		     "*.texi"
+		     "*.ti"))
     :config
-  (setq explicit-shell-file-name "cmdproxy.exe")
-  (add-hook 'eshell-load-hook #'eat-eshell-mode)
-  (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)))
+    (setq eat-windows-pywinpty-bridge
+	  (expand-file-name
+	   "eat-pywinpty-bridge.py"
+	   (file-name-directory (locate-library "eat"))))
+    :hook (eshell-mode . eat-eshell-mode)))
 #+end_src
 
 * SUDO EDIT
