@@ -7,11 +7,13 @@ custom configuration, with some additions and tweaking such as compatibility wit
 Windows and support for the upcoming lexical-binding default mode in Elisp.
 
 * PRE-REQUISITES
-1. Git
-2. Python
-3. pywinpty (Python package)
+- Emacs >= 29.1
+- Git
+
+Windows specific:
+- Python
+- pywinpty (Python package)
   - To install: ~pip install pywinpty~
-4. Emacs >= 29.1
 
 * INSTALLATION
 1. Remove "~/.emacs.d", "~/.emacs", and any other config files and directories
