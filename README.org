@@ -11,6 +11,7 @@ Windows and support for the upcoming lexical-binding default mode in Elisp.
 2. Python
 3. pywinpty (Python package)
   - To install: ~pip install pywinpty~
+4. Emacs >= 29.1
 
 * INSTALLATION
 1. Remove "~/.emacs.d", "~/.emacs", and any other config files and directories
