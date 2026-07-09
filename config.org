@@ -485,7 +485,7 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
 
   (bryan/leader-keys
    "t" '(:ignore t :wk "Toggle")
-   "t e" '(eshell-toggle :wk "Toggle Eshell")
+   "t e" '(eat-toggle :wk "Toggle Eat")
    "t f" '(flycheck-mode :wk "Toggle Flycheck")
    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
    "t n" '(neotree-toggle :wk "Toggle Neotree file viewer")
@@ -984,6 +984,21 @@ We will only install this package if we are on a Windows system.
 	   "eat-pywinpty-bridge.py"
 	   (file-name-directory (locate-library "eat"))))
     :hook (eshell-mode . eat-eshell-mode)))
+
+(defun eat-toggle ()
+  "Toggle Eat buffer in horizontal split"
+  (interactive)
+  (let ((my-eat-buffer-name "*eat*"))
+    (if (get-buffer-window my-eat-buffer-name)
+	(delete-window (get-buffer-window my-eat-buffer-name))
+      (eat))))
+
+(customize-set-variable
+ 'display-buffer-alist
+ '(("\\*eat\\*"
+    (display-buffer-reuse-window display-buffer-in-side-window)
+    (side . bottom)
+    (window-height . 0.3)))) ; 0.3 means 30% of the frame height
 #+end_src
 
 * SUDO EDIT
