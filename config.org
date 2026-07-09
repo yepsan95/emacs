@@ -51,6 +51,7 @@
   - [[#vterm][Vterm]]
   - [[#vterm-toggle][Vterm-Toggle]]
   - [[#eat][Eat]]
+  - [[#eat-toggle][Eat-Toggle]]
 - [[#sudo-edit][SUDO EDIT]]
 - [[#theme][THEME]]
 - [[#tldr][TLDR]]
@@ -984,13 +985,18 @@ We will only install this package if we are on a Windows system.
 	   "eat-pywinpty-bridge.py"
 	   (file-name-directory (locate-library "eat"))))
     :hook (eshell-mode . eat-eshell-mode)))
+#+end_src
 
+** Eat-Toggle
+eat-toggle toggles between the Eat buffer and whatever buffer you are editing.
+
+#+begin_src emacs-lisp
 ;; Define eat-toggle function to toggle Eat terminal emulator
 (require 'project)
 
 (defun eat-toggle ()
   "Toggle Eat buffer in horizontal split.
-Opens the terminal in the project root if it's the first time running."
+Opens the terminal in the project root if the buffer is being created for the first time."
   (interactive)
   (let ((my-eat-buffer-name "*eat*"))
     (if (get-buffer-window my-eat-buffer-name)
@@ -1001,15 +1007,16 @@ Opens the terminal in the project root if it's the first time running."
 	       (target-dir (if proj
 			       (project-root proj)
 			     default-directory)))
-	  ;; Temporarily set default-directory so Eat spawns there
+	  ;; Temporarily set default-directory so Eat starts in the project root
 	  (setq default-directory target-dir)))
       (eat))))
 
+;; Adjust Eat buffer position and height
 (customize-set-variable
  'display-buffer-alist
  '(("\\*eat\\*"
     (display-buffer-reuse-window display-buffer-in-side-window)
-    (side . bottom)
+    (side . bottom) ; Eat buffer will be positioned at the bottom of the frame
     (window-height . 0.3)))) ; 0.3 means 30% of the frame height
 #+end_src
 
