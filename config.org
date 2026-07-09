@@ -48,6 +48,7 @@
 - [[#scrolling-behaviour][SCROLLING BEHAVIOUR]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
   - [[#eshell][Eshell]]
+  - [[#eshell-toggle][Eshell-Toggle]]
   - [[#vterm][Vterm]]
   - [[#vterm-toggle][Vterm-Toggle]]
   - [[#eat][Eat]]
@@ -487,6 +488,7 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
   (bryan/leader-keys
    "t" '(:ignore t :wk "Toggle")
    "t e" '(eat-toggle :wk "Toggle Eat")
+   "t E" '(eshell-toggle :wk "Toggle Eshell")
    "t f" '(flycheck-mode :wk "Toggle Flycheck")
    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
    "t n" '(neotree-toggle :wk "Toggle Neotree file viewer")
@@ -924,6 +926,45 @@ user-emacs-directory "eshell/profile")
         "top"
         "zsh"
       ))
+#+end_src
+
+** Eshell-Toggle
+eshell-toggle toggles between the Eshell buffer and whatever buffer you are editing.
+
+#+begin_src emacs-lisp
+;; Define eshell-toggle function to toggle Eshell
+(require 'project)
+
+(defun eshell-toggle ()
+  "Toggle Eshell buffer in horizontal split.
+Opens the terminal in the project root if the buffer is being created for the first time."
+  (interactive)
+  (let* ((my-eshell-buffer-name "*eshell*")
+         (esh-win (get-buffer-window my-eshell-buffer-name)))
+    (if esh-win
+        ;; If Eshell window is visible, hide it
+        (delete-window esh-win)
+
+      ;; If Eshell is closed, check if the buffer exists yet
+      (let ((buffer-exists (get-buffer my-eshell-buffer-name)))
+        ;; Create the window split safely first (30% from the bottom)
+        (let ((new-win (split-window (frame-root-window)
+                                     (- (round (* (window-pixel-height (frame-root-window)) 0.3)))
+                                     'below 'pixelwise)))
+          (select-window new-win)
+
+          ;; If it's the first time running, handle the project root directory
+          (if (not buffer-exists)
+              (let* ((proj (project-current))
+                     (default-directory (if proj
+                                            (project-root proj)
+                                          default-directory)))
+                (eshell))
+            ;; If buffer already exists, simply switch to it in our new split
+            (switch-to-buffer my-eshell-buffer-name))
+
+          ;; Dedicate this window to Eshell so other buffers don't accidentally hijack it
+          (set-window-dedicated-p new-win t))))))
 #+end_src
 
 ** Vterm
