@@ -985,12 +985,24 @@ We will only install this package if we are on a Windows system.
 	   (file-name-directory (locate-library "eat"))))
     :hook (eshell-mode . eat-eshell-mode)))
 
+;; Define eat-toggle function to toggle Eat terminal emulator
+(require 'project)
+
 (defun eat-toggle ()
-  "Toggle Eat buffer in horizontal split"
+  "Toggle Eat buffer in horizontal split.
+Opens the terminal in the project root if it's the first time running."
   (interactive)
   (let ((my-eat-buffer-name "*eat*"))
     (if (get-buffer-window my-eat-buffer-name)
 	(delete-window (get-buffer-window my-eat-buffer-name))
+      ;; If the buffer doesn't exist yet, determine the starting directory
+      (unless (get-buffer my-eat-buffer-name)
+	(let* ((proj (project-current))
+	       (target-dir (if proj
+			       (project-root proj)
+			     default-directory)))
+	  ;; Temporarily set default-directory so Eat spawns there
+	  (setq default-directory target-dir)))
       (eat))))
 
 (customize-set-variable
