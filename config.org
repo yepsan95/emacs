@@ -858,6 +858,7 @@ you would expect a proper editor/IDE to function.
 (menu-bar-mode -1)                        ;; Disable the menu bar
 (tool-bar-mode -1)                        ;; Disable the tool bar
 (scroll-bar-mode -1)                      ;; Disable the scroll bar
+(setq ring-bell-function 'ignore)         ;; Disable warning beep sound
 (setq org-edit-src-content-indentation 0) ;; Set src blocks automatic indent to 0 instead of 2 in org-mode
 #+end_src
 
