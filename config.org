@@ -373,7 +373,7 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
    "e e" '(eval-expression :wk "Evaluate an elisp expression")
    "e h" '(counsel-esh-history :wk "Eshell history")
    "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
-   "e r" '(evaluate-region :wk "Evaluate elisp in region")
+   "e r" '(eval-region :wk "Evaluate elisp in region")
    "e R" '(eww-reload :wk "Reload current page in EWW")
    "e s" '(eshell :wk "Eshell")
    "e w" '(eww :wk "EWW Emacs Web Wowser"))
