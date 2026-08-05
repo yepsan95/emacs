@@ -987,24 +987,45 @@ By default, the shell is set to 'fish' but could change it to 'bash' or 'zsh' if
 vterm-toggle toggles between the vterm buffer and whatever buffer you are editing.
 
 #+begin_src emacs-lisp
-(use-package vterm-toggle :ensure t
-  :after vterm
+;; 1. Dynamic buffer predicate, free of hardcoded strings, capturing vterm at its first millisecond
+(defun my-vterm-buffer-predicate (buffer-name _action)
+  "Return t if the buffer belongs to vterm dynamically, tracking its initialization state."
+  (let ((buf (get-buffer buffer-name)))
+    (when buf
+      (with-current-buffer buf
+        (or ;; Case A: Subsequent runs (the major-mode is already fully active)
+            (derived-mode-p 'vterm-mode)
+            ;; Case B: First run ever (the buffer is being born in fundamental-mode)
+            ;; We dynamically check if the buffer name matches the format that
+            ;; 'vterm-buffer-name' will have, resolving the symbol safely.
+            (let ((expected-name (if (boundp 'vterm-buffer-name)
+                                     vterm-buffer-name
+                                   ;; If vterm hasn't loaded yet, we extract the standard
+                                   ;; name from the official symbol to avoid hardcoded strings
+                                   (symbol-name 'vterm))))
+              (string-match-p expected-name (buffer-name buf))))))))
+
+;; 2. Clean injection into Emacs window management system
+(defun my-vterm-window-setup ()
+  "Ensure the vterm-toggle window rule is applied at the very end of Emacs startup."
+  (add-to-list 'display-buffer-alist
+               '(my-vterm-buffer-predicate
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+		 (display-buffer-reuse-window display-buffer-in-direction) ;; display-buffer-in-direction/direction/dedicated is added in Emacs 27
+                 (direction . bottom)
+		 (dedicated . t) ; dedicated is supported in Emacs 27
+                 (reusable-frames . visible)
+                 (window-height . 0.3))))
+
+;; 3. Hook into the final startup lifecycle to prevent other packages from overriding it
+(add-hook 'emacs-startup-hook #'my-vterm-window-setup)
+
+;; 4. Base package configuration
+(use-package vterm-toggle
+  :ensure t
   :config
   (setq vterm-toggle-fullscreen-p nil)
-  (setq vterm-toggle-scope 'project)
-  (add-to-list 'display-buffer-alist
-               '((lambda (buffer-or-name _)
-                     (let ((buffer (get-buffer buffer-or-name)))
-                       (with-current-buffer buffer
-                         (or (equal major-mode 'vterm-mode)
-                             (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
-                  (display-buffer-reuse-window display-buffer-at-bottom)
-                  ;; (display-buffer-reuse-window display-buffer-in-direction)
-                  ;; display-buffer-in-direction/direction/dedicated is added in Emacs 27
-                  ;; (direction . bottom)
-                  ;; (dedicated . t) ; dedicated is supported in Emacs 27
-                  (reusable-frames . visible)
-                  (window-height . 0.3))))
+  (setq vterm-toggle-scope 'project))
 #+end_src
 
 ** Eat
