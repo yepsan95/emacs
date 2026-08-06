@@ -328,7 +328,7 @@ Defining the various fonts that Emacs will use.
 (add-to-list 'default-frame-alist
              (cons 'font (if (eq system-type 'windows-nt)
                              "JetBrains Mono-11"
-                           "JetBrains Mono-14")))
+                           "JetBrains Mono-16")))
 
 ;; Uncomment the following line if line spacing needs adjusting.
 ;; (setq-default line-spacing 0.12)
