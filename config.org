@@ -369,7 +369,16 @@ You can also use the CTRL plus the mouse wheel for zooming in/out.
 
   (bryan/leader-keys
    "a" '(:ignore t :wk "Arduino")
+   "a b" '(arduino-cli-board-list :wk "Show list of connected Arduino boards")
    "a c" '(my/arduino-compile :wk "Arduino compile")
+   "a l" '(:ignore t :wk "Arduino libraries")
+   "a l b" '(arduino-cli-lib-browse :wk "Browse the install directory ofan installed Arduino library")
+   "a l i" '(arduino-cli-lib-install :wk "Find and install Arduino libraries")
+   "a l l" '(arduino-cli-lib-list :wk "Show list of installed Arduino libraries")
+   "a l u" '(arduino-cli-lib-uninstall :wk "Find and uninstall Arduino libraries")
+   "a l U" '(arduino-cli-lib-upgrade :wk "Upgrade Arduino libraries")
+   "a m" '(arduino-serial-monitor :wk "Arduino serial monitor")
+   "a n" '(arduino-cli-new-sketch :wk "Arduino create new sketch")
    "a u" '(my/arduino-upload :wk "Arduino upload")
    "a U" '(my/arduino-compile-and-upload :wk "Arduino compile & upload"))
 
