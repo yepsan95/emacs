@@ -665,6 +665,7 @@ Simula, SQL, Tcl, Verilog, and VHDL. Other languages will require you to install
 (use-package markdown-mode :ensure t)
 (use-package arduino-mode :ensure t :after flycheck)
 (use-package arduino-cli-mode :ensure t)
+(use-package pyvenv :ensure t)
 ;; Search for the names of the packages for the languages that you need
 #+end_src
 
@@ -974,6 +975,17 @@ user-emacs-directory "eshell/profile")
         "top"
         "zsh"
       ))
+
+;; This package allows Python's virtual environment activation from within Eshell.
+(use-package eshell-venv :ensure (:repo "https://git.sr.ht/~struanr/eshell-venv")
+  :hook (eshell-mode . eshell-venv-mode))
+
+(defvar python-shell-virtualenv-root nil)
+(defvaralias 'python-shell-virtualenv-path 'python-shell-virtualenv-root)
+
+(with-eval-after-load 'pyvenv
+  (with-eval-after-load 'python
+    (setq pyvenv-virtualenv-path 'python-shell-virtualenv-root)))
 #+end_src
 
 ** Eshell-Toggle
